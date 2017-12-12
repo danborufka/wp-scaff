@@ -3,22 +3,23 @@
 
  *********/
 
-const config      = require('./config.json');
-const gulp        = require('gulp'),
-const uglify      = require('gulp-uglify'),
-const browserSync = require('browser-sync').create(),
-const sass        = require('gulp-sass'),
-const sourcemaps  = require('gulp-sourcemaps'),
-const copy        = require('gulp-copy'),
-const concat      = require('gulp-concat'),
-const prompt      = require('gulp-prompt'),
-const merge       = require('merge-stream'),
-const autoprefixer= require('gulp-autoprefixer'),
-const cleanCSS    = require('gulp-clean-css'),
-const rename      = require("gulp-rename"),
-const babel       = require('gulp-babel'),
-const notify      = require("gulp-notify"),
-const plumber     = require('gulp-plumber');
+var config      = require('./config.json');
+var fs          = require('fs');
+var gulp        = require('gulp');
+var uglify      = require('gulp-uglify');
+var browserSync = require('browser-sync').create();
+var sass        = require('gulp-sass');
+var sourcemaps  = require('gulp-sourcemaps');
+var copy        = require('gulp-copy');
+var concat      = require('gulp-concat');
+var prompt      = require('gulp-prompt');
+var merge       = require('merge-stream');
+var autoprefixer= require('gulp-autoprefixer');
+var cleanCSS    = require('gulp-clean-css');
+var rename      = require("gulp-rename");
+var babel       = require('gulp-babel');
+var notify      = require("gulp-notify");
+var plumber     = require('gulp-plumber');
 
 var bases = {
     theme:  'wp-content/themes/' + config.projectName + '/',
@@ -28,6 +29,33 @@ var bases = {
     es:     'wp-content/themes/' + config.projectName + '/src/js',
 };
 
+gulp.task('custom-config', function() {
+
+    if(!config.projectName) {
+        gulp.src('*').pipe(prompt.prompt({
+            type: 'input',
+            name: 'projectName',
+            message: 'Name of project'
+        }, function(user) {
+            config.projectName = user.projectName;
+            fs.writeFile('config.json', JSON.stringify(config), 'utf8');
+        }));
+    }
+});
+
+gulp.task('custom-theme', function() {
+    fs.access('wp-content/themes/' + config.projectName, function(doesntExist) {
+        if(doesntExist) {
+            gulp  
+                .src('wp-content/themes/wp_scaff/**/*.*')
+                .pipe(gulp.dest('wp-content/themes/' + config.projectName + '/'));
+
+            console.log('created!');
+        }
+    });
+});
+
+gulp.task('customize', ['custom-config', 'custom-theme']);
 
 gulp.task('concat', function () {
     return gulp.src('src/js/**/*.js')
@@ -40,28 +68,6 @@ gulp.task('vendor', function () {
     return gulp.src([
         'node_modules/jquery/dist/jquery.js',                       //  jQuery
         'node_modules/foundation-sites/dist/js/foundation.js',      //  Foundation
-        'node_modules/slick-carousel/slick/slick.js',               //  Slick
-        'node_modules/gsap/TweenMax.js',                            //  GSAP
-        // 'node_modules/countup.js/dist/countUp.js',               //  Countiup
-        // 'node_modules/in-view/dist/in-view.min.js',              //  in-view
-        // 'node_modules/vissense/dist/vissense.js',                //  vissense (Visivle in Dom)
-        'node_modules/chart.js/dist/Chart.js',                   //  chart.js
-        'node_modules/parsleyjs/dist/parsley.js',                //  parsley.js
-        'node_modules/parsleyjs/dist/i18n/en.js',                //  parsley.js
-        'node_modules/parsleyjs/dist/i18n/de.js',                //  parsley.js
-        'node_modules/parsleyjs/dist/i18n/ru.js',                //  parsley.js
-        // 'node_modules/video.js/dist/video.js',                   //  video.js
-        // 'node_modules/lodash/lodash.js',                         //  lodash
-        // 'node_modules/gsap/TweenMax.js',                			//
-        // 'node_modules/gsap/src/uncompressed/plugins/ScrollToPlugin.js',                       			//
-        // 'node_modules/scrollmagic/scrollmagic/uncompressed/ScrollMagic.js',            
-        // 'node_modules/scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js',                       			//
-        // 'node_modules/scrollmagic/scrollmagic/plugins/jquery.ScrollMagic.js',                       			//
-        // 'node_modules/photoswipe/dist/photoswipe.js',                       			//
-        // 'node_modules/photoswipe/dist/photoswipe-ui-default.js',                       			//
-        // 'node_modules/masonry-layout/dist/masonry.pkgd.js',      //  Foundation
-        // 'node_modules/jquery/dist/jquery.min.js',                       //  jQuery
-        // 'node_modules/foundation-sites/dist/js/foundation.min.js',      //  Foundation
     ])
     .pipe(concat('vendor.js'))
     .pipe(gulp.dest(bases.js))
@@ -155,7 +161,7 @@ gulp.task('minify-css', function () {
 gulp.task('watch', function (event, file) {
 
     const server = browserSync.init({
-        proxy: "http://localhost:8888/" + config.projectDir
+        proxy: "http://localhost:8888" + config.projectDir
     });
 
     gulp.watch([bases.theme + "**/*.php"],          browserSync.reload);
@@ -169,4 +175,4 @@ gulp.task('watch', function (event, file) {
 
 });
 
-gulp.task('default', ['vendor', 'scripts', 'sass', 'watch']);
+gulp.task('default', ['customize','vendor','scripts','sass','watch']);
