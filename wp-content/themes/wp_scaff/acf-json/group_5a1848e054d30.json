@@ -1,0 +1,80 @@
+{
+    "key": "group_5a1848e054d30",
+    "title": "Optionen Beitragsbild",
+    "fields": [
+        {
+            "key": "field_5a1848ec223e8",
+            "label": "Ausrichtung",
+            "name": "coverage",
+            "type": "button_group",
+            "instructions": "Wie soll das Bild ausgerichtet werden, wenn es kleiner ist als der dafür vorgesehene Balken?",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "fill": "füllend",
+                "center": "zentriert"
+            },
+            "allow_null": 0,
+            "default_value": "füllend",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_5a184c051e44d",
+            "label": "Hintergrundfarbe",
+            "name": "background-color",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": null,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": ""
+        },
+        {
+            "key": "field_5a1ee5d6337b2",
+            "label": "Embed",
+            "name": "embed",
+            "type": "text",
+            "instructions": "Für Einbettungen von Drittanbietern (z.B. Google Maps)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1511974384
+}

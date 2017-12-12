@@ -1,0 +1,7 @@
+a[href^="#"] {
+	// text-decoration: line-through;
+}
+
+@mixin animated($prop:all) {
+	transition: .3s $prop;
+}

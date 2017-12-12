@@ -1,0 +1,220 @@
+
+.intro {
+	// width: 100%;
+ //    height: 100vh;
+ //    overflow: hidden;
+ //    position: absolute;
+}
+
+
+.intro_logo {
+	width: 30vh;
+    margin: 0 auto;
+    display: block;
+	padding: 10px 0;
+
+	
+	@include breakpoint(medium) {
+		padding: 30px;
+		margin: inherit;
+		width: auto;
+	}
+
+	&.finish {
+		top: 20px;
+		position: absolute;
+		width: 320px;
+		margin: 0 auto;
+		left: calc(50% - 160px);
+	}
+}
+
+.live, .be {
+	@include avenir('demi')
+    font-size: 4vh;
+    // text-align: center;
+    margin: 5vh 0;
+    left: 28vw;
+    display: inline-block;
+
+    @include breakpoint(large) {
+		text-align: left;
+    	font-size: 5vh;
+		margin: auto;
+		left: auto;
+	}
+	
+	position: relative;
+	@include breakpoint(medium) {
+		position: fixed;	
+	}
+
+}
+
+
+
+
+
+.live {
+
+	z-index: 960;
+	
+	@include breakpoint(medium) {
+		
+		z-index: 20;
+		left: 20%;
+	    transform: translate(0, -50%);
+	    top: 50%;
+
+	}
+}
+
+.be {
+	z-index: 950;
+	
+	
+	@include breakpoint(medium) {
+
+		left: 68%;
+	    transform: translate(0, -50%);
+	    top: 50%;
+
+
+	}
+
+}
+
+.solid {
+	position: fixed;
+	z-index: 900;
+	overflow: hidden;
+	top: 0;
+	left: 100%;
+	width: 100%;
+	height: 100%; // new
+	img {
+		max-width: inherit;
+	}
+
+	background: #d6af60;
+	background: -moz-linear-gradient(-45deg, #d6af60 0%, #845318 100%);
+	background: -webkit-linear-gradient(-45deg, #d6af60 0%,#845318 100%);
+	background: linear-gradient(135deg, #d6af60 0%,#845318 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6af60', endColorstr='#845318',GradientType=1 );
+
+	// transition: left 1s;
+
+	// &.state1 {
+	// 	left: 64%;
+	// }
+
+}
+
+
+.text {
+	@include avenir('medium')
+    position: absolute;
+	left: 5%;
+    top: 15%;
+	max-width: 90%;
+    font-size: 4.5vh;
+
+
+	 @include breakpoint(medium) {
+	    
+	    left: 50%;
+	    // top: 15%;
+		max-width: 40%;
+    	font-size: 3vh;
+
+	}
+    
+    @include breakpoint(large) {
+
+    	font-size: 5vh;
+
+	}
+
+    top: 50%;
+    transform: translate(0, -50%);
+    overflow: hidden;
+    @include avenir(600)
+    
+    // @include breakpoint(large) {
+    // 	font-size: 32px;
+    // }
+    
+    p {
+		// margin-bottom: 33px;
+		margin-bottom: 4vh;
+		// opacity: 0;
+
+		left: 100%;
+		position: relative;
+		line-height: 1.4;
+
+    }
+}
+
+
+.whiteSolid {
+	background: white;
+	position: fixed;
+    width: 100%;
+    height: 100vh;
+    // left: 100%;
+    z-index: 10;
+    top: 0;
+}
+
+
+.background {
+	background: url('../img/intro_bg.jpg');
+
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    // left: 100%;
+    z-index: 3;
+    top: 0;
+    // opacity: 0;
+
+}
+
+
+
+.skip {
+	position: fixed;
+	left: 50%;
+    transform: translateX(-50%);
+	top: -100px;
+	background: white;
+	border: $brown solid 1px;
+	z-index: 1050;
+	text-transform: uppercase;
+	text-align: center;
+	width: 120px;
+	height: 57px;
+	font-weight: 500;
+	font-size: 11px;
+	
+	@include breakpoint(medium) {
+		width: 100px;
+		height: 100px;
+		font-size: 16px;
+	}
+	
+	p {
+		line-height: 1.5;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding: 0;
+		margin: 10px 6px;
+	}
+
+}

@@ -1,0 +1,12 @@
+@mixin prox($weight) {
+	font-family: "proxima-nova";
+	@if length($weight) == 0 {
+		font-weight: 300;
+	} @else {
+		font-weight: $weight;
+	}
+}
+
+
+// Usage:
+// @include prox(500); 
